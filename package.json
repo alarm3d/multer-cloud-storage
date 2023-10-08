@@ -1,6 +1,6 @@
 {
   "name": "multer-cloud-storage",
-  "version": "3.1.0",
+  "version": "3.1.0-m",
   "description": "Multer storage engine for Google Cloud Storage",
   "main": "lib/index.js",
   "typings": "lib/index",
@@ -21,26 +21,26 @@
     "cloud",
     "storage"
   ],
-  "author": "Alexandre Steinberg",
+  "author": "alarm3d",
   "license": "MIT",
   "dependencies": {
-    "@google-cloud/storage": "^6.12.0",
-    "@types/express": "^4.17.17",
+    "@google-cloud/storage": "^7.2.0",
+    "@types/express": "^4.17.18",
     "multer": "^1.4.5-lts.1",
     "urlencode": "^1.1.0",
-    "uuid": "^9.0.0"
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
-    "@types/jest": "^29.5.3",
-    "@types/multer": "^1.4.7",
-    "@types/node": "^20.4.2",
+    "@types/jest": "^29.5.5",
+    "@types/multer": "^1.4.8",
+    "@types/node": "^20.8.3",
     "@types/urlencode": "^1.1.2",
-    "jest": "^29.6.1",
-    "rimraf": "^5.0.1",
-    "typescript": "^5.1.6"
+    "jest": "^29.7.0",
+    "rimraf": "^5.0.5",
+    "typescript": "^5.2.2"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/alexandre-steinberg/multer-cloud-storage.git"
+    "url": "https://github.com/alarm3d/multer-cloud-storage.git"
   }
 }

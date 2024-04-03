@@ -24,20 +24,20 @@
   "author": "alarm3d",
   "license": "MIT",
   "dependencies": {
-    "@google-cloud/storage": "^7.2.0",
-    "@types/express": "^4.17.18",
+    "@google-cloud/storage": "^7.9.0",
+    "@types/express": "^4.17.21",
     "multer": "^1.4.5-lts.1",
-    "urlencode": "^1.1.0",
+    "urlencode": "^2.0.0",
     "uuid": "^9.0.1"
   },
   "devDependencies": {
-    "@types/jest": "^29.5.5",
-    "@types/multer": "^1.4.8",
-    "@types/node": "^20.8.3",
-    "@types/urlencode": "^1.1.2",
+    "@types/jest": "^29.5.12",
+    "@types/multer": "^1.4.11",
+    "@types/node": "^20.12.4",
+    "@types/urlencode": "^1.1.4",
     "jest": "^29.7.0",
     "rimraf": "^5.0.5",
-    "typescript": "^5.2.2"
+    "typescript": "^5.4.3"
   },
   "repository": {
     "type": "git",

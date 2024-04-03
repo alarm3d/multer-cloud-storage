@@ -117,18 +117,17 @@ export default class MulterGoogleCloudStorage implements multer.StorageEngine {
         : (this.getContentType = opts.contentType || this.getContentType);
     }
 
-    opts.apiEndpoint = opts.apiEndpoint || process.env.GCS_API_ENDPOINT || null;
-    opts.bucket = opts.bucket || process.env.GCS_BUCKET || null;
-    opts.projectId = opts.projectId || process.env.GCLOUD_PROJECT || null;
-    opts.keyFilename = opts.keyFilename || process.env.GCS_KEYFILE || null;
+    const bucket = opts.bucket || process.env.GCS_BUCKET || null;
+    const projectId = opts.projectId || process.env.GCLOUD_PROJECT || null;
+    const keyFilename = opts.keyFilename || process.env.GCS_KEYFILE || null;
 
-    if (!opts.bucket) {
+    if (!bucket) {
       throw new Error(
         "You have to specify bucket for Google Cloud Storage to work."
       );
     }
 
-    if (!opts.projectId) {
+    if (!projectId) {
       throw new Error(
         "You have to specify project id for Google Cloud Storage to work."
       );
@@ -140,13 +139,12 @@ export default class MulterGoogleCloudStorage implements multer.StorageEngine {
      */
 
     this.gcsStorage = new Storage({
-      apiEndpoint: opts.apiEndpoint,
-      projectId: opts.projectId,
-      keyFilename: opts.keyFilename,
-      credentials: opts.credentials,
+      ...opts,
+      projectId,
+      keyFilename,
     });
 
-    this.gcsBucket = this.gcsStorage.bucket(opts.bucket);
+    this.gcsBucket = this.gcsStorage.bucket(bucket);
 
     this.options = opts;
   }
@@ -174,7 +172,7 @@ export default class MulterGoogleCloudStorage implements multer.StorageEngine {
         .on("error", (err) => cb(err))
         .on("finish", (file) => {
           const name = blob.metadata.name;
-          const filename = name.substring(name.lastIndexOf("/") + 1);
+          const filename = name.substr(name.lastIndexOf("/") + 1);
           cb(null, {
             bucket: blob.metadata.bucket,
             destination: blobFile.destination,
@@ -183,9 +181,7 @@ export default class MulterGoogleCloudStorage implements multer.StorageEngine {
             contentType: blob.metadata.contentType,
             size: blob.metadata.size,
             uri: `gs://${blob.metadata.bucket}/${blobFile.destination}${filename}`,
-            linkUrl: `${
-              this.options.apiEndpoint || "https://storage.googleapis.com"
-            }/${blob.metadata.bucket}/${blobFile.destination}${filename}`,
+            linkUrl: `${this.gcsStorage.apiEndpoint}/${blob.metadata.bucket}/${blobFile.destination}${filename}`,
             selfLink: blob.metadata.selfLink,
             //metadata: blob.metadata
           });

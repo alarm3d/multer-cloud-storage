@@ -1,3 +1,4 @@
+import * as gcs from "@google-cloud/storage";
 import { StorageOptions } from "@google-cloud/storage";
 import { MulterGoogleCloudStorageOptions } from "./index";
 import MulterGoogleCloudStorage from "./index";
@@ -8,25 +9,18 @@ const cloudStorage = (
 ) => new MulterGoogleCloudStorage(opts);
 
 describe("MulterGoogleCloudStorage checks", () => {
-  const opts = {
-    bucket: "test",
-    projectId: "test",
-    keyFilename: "./test",
-    apiEndpoint: "localhost",
-  };
+  const opts = { bucket: "test", projectId: "test", keyFilename: "./test" };
 
   test("Constructor shall accept parameters defined in process.env", () => {
     process.env.GCS_BUCKET = "test";
     process.env.GCLOUD_PROJECT = "test";
     process.env.GCS_KEYFILE = "./test";
-    process.env.GCS_API_ENDPOINT = "localhost";
 
     expect(cloudStorage()).toBeInstanceOf(MulterGoogleCloudStorage);
 
     delete process.env.GCS_BUCKET;
     delete process.env.GCLOUD_PROJECT;
     delete process.env.GCS_KEYFILE;
-    delete process.env.GCS_API_ENDPOINT;
   });
 
   test("Constructor shall accept parameters defined in opts", () => {
@@ -58,22 +52,10 @@ describe("MulterGoogleCloudStorage checks", () => {
     const keyFileName = {
       bucket: "test",
       projectId: "test",
-      keyFilename: "./test7",
+      keyFilename: "./test",
     };
     expect(() => {
       cloudStorage(keyFileName);
-    }).not.toThrow();
-  });
-
-  test("Constructor shall not throw error when using apiEndpoint", () => {
-    const apiEndpoint = {
-      bucket: "test",
-      projectId: "test",
-      keyFilename: "./test",
-      apiEndpoint: "localhost",
-    };
-    expect(() => {
-      cloudStorage(apiEndpoint);
     }).not.toThrow();
   });
 

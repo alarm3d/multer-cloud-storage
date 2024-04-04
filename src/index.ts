@@ -7,7 +7,7 @@ import {
   StorageOptions,
 } from "@google-cloud/storage";
 import { v4 as uuid } from "uuid";
-import urlencode = require("urlencode");
+import { encode } from "urlencode";
 import { Request } from "express";
 
 type GoogleCloudBlobFileReference = {
@@ -76,7 +76,7 @@ export default class MulterGoogleCloudStorage implements multer.StorageEngine {
         return false;
       }
 
-      blobFile.filename = urlencode(
+      blobFile.filename = encode(
         filename
           .replace(/^\.+/g, "")
           .replace(/^\/+/g, "")
